@@ -11,12 +11,16 @@ $UV alembic -c /app/backend/alembic.ini upgrade head
 echo "Cleaning orphan scheduler jobs..."
 uv run --project /app/backend python << 'EOF'
 import asyncio
+import sqlalchemy.exc
 from src.db.session import scheduler_engine
 
 async def clean():
     from sqlalchemy import text
     async with scheduler_engine.begin() as conn:
-        await conn.execute(text("DELETE FROM apscheduler_jobs"))
+        try:
+            await conn.execute(text("DELETE FROM apscheduler_jobs"))
+        except sqlalchemy.exc.OperationalError:
+            pass
 
 asyncio.run(clean())
 EOF
