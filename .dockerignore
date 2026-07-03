@@ -19,6 +19,7 @@ cookies*.txt
 cookies*.json
 .env
 .env.*
+DESARROLLO.md
 PLAN_*.md
 SPECIFICACION_*.md
 *.spec.md

@@ -6,8 +6,7 @@ PROBLEMS_AND_SOLUTIONS.md
 *_RETROSPECTIVE*.md
 WEB_DESIGN.md
 NOTAS*.md
-# Excepción: DESARROLLO.md SÍ se commitea (handover entre IAs, §6.14)
-!DESARROLLO.md
+DESARROLLO.md
 
 # Secretos y datos reales (NUNCA al repo)
 *.key
