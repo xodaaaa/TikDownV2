@@ -6,11 +6,13 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     curl \
     ca-certificates \
-    nodejs \
-    npm \
     && rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g pnpm@11.9 && corepack prepare pnpm@11.9 --activate
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/* \
+    && npm install -g pnpm@11.9 \
+    && corepack enable
 
 COPY backend/pyproject.toml backend/uv.lock /app/backend/
 COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml /app/frontend/
