@@ -24,8 +24,7 @@ RUN cd /app/frontend && pnpm install --frozen-lockfile && pnpm build
 
 RUN pip install uv && cd /app/backend && uv sync --frozen
 
-RUN python -c "import yt_dlp; print(f'yt-dlp version: {yt_dlp.__version__}')" || \
-    (echo "FAIL: yt-dlp not installed or version check failed" && exit 1)
+RUN uv run --project /app/backend python -c "import yt_dlp; print('yt-dlp OK:', yt_dlp.__version__)"
 
 EXPOSE 8000
 
