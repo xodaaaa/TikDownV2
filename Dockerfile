@@ -20,6 +20,8 @@ COPY frontend/package.json frontend/pnpm-lock.yaml frontend/pnpm-workspace.yaml 
 COPY backend/ /app/backend/
 COPY frontend/ /app/frontend/
 
+RUN ln -sf /app/backend/alembic /app/alembic
+
 RUN cd /app/frontend && pnpm install --frozen-lockfile && pnpm build
 
 RUN pip install uv && cd /app/backend && uv sync --frozen
