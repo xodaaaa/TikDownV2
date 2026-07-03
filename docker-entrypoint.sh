@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export PYTHONPATH=/app/backend
+
 UV="uv run --project /app/backend"
 
 echo "Running alembic migrations..."
