@@ -1,0 +1,52 @@
+# Documentos internos (no commitear sin confirmación explícita del usuario)
+SPECIFICACION_*.md
+PLAN_*.md
+*.spec.md
+PROBLEMS_AND_SOLUTIONS.md
+*_RETROSPECTIVE*.md
+WEB_DESIGN.md
+NOTAS*.md
+# Excepción: DESARROLLO.md SÍ se commitea (handover entre IAs, §6.14)
+!DESARROLLO.md
+
+# Secretos y datos reales (NUNCA al repo)
+*.key
+fernet.key
+secret.key
+*.cookies.txt
+cookies*.txt
+cookies*.json
+.env
+.env.*
+!.env.example
+
+# Datos y media
+data/
+*.mp4
+*.mp3
+*.webm
+backups/
+*.db
+*.db-shm
+*.db-wal
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+
+# Node/Frontend
+node_modules/
+dist/
+.pnpm-store/
+*.log
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

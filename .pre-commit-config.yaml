@@ -1,0 +1,54 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.9.0
+    hooks:
+      - id: ruff
+        name: ruff-lint-backend
+        args: [--fix]
+        types_or: [python, pyi]
+      - id: ruff-format
+        name: ruff-format-backend
+        types_or: [python, pyi]
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.0.0
+    hooks:
+      - id: eslint
+        name: eslint-frontend
+        files: ^frontend/.*\.(ts|tsx|js|jsx)$
+        types_or: [javascript, jsx, ts, tsx]
+        args: [--fix]
+        additional_dependencies:
+          - eslint
+          - typescript
+          - '@typescript-eslint/parser'
+          - '@typescript-eslint/eslint-plugin'
+
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v4.0.0-alpha.8
+    hooks:
+      - id: prettier
+        name: prettier-frontend
+        files: ^frontend/.*\.(ts|tsx|js|jsx|css|json|yaml|yml|html)$
+        args: [--write]
+
+  - repo: local
+    hooks:
+      - id: leak-check
+        name: leak-check-datos-reales
+        description: Escanea el árbol de tests buscando datos reales de TikTok
+        entry: >
+          powershell -Command "
+            $results = Select-String -Path 'backend/src/tests/**/*.py' -Pattern
+              'tiktok\.com|sessionid=(?!FAKE_TEST|TEST_FIXTURE)|cookies_real|\.cookies\.txt' -SimpleMatch;
+            if ($results) {
+              Write-Host 'ERROR: Se detectaron posibles datos reales en los tests:';
+              $results | ForEach-Object { Write-Host $_.Filename ': ' $_.LineNumber ': ' $_.Line.Trim() };
+              exit 1;
+            } else {
+              Write-Host 'OK: No se detectaron datos reales en los tests.';
+              exit 0;
+            }
+          "
+        language: system
+        pass_filenames: false
