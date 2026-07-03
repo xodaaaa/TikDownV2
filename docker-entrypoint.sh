@@ -28,5 +28,4 @@ EOF
 echo "Starting TikDown..."
 exec uv run --project /app/backend uvicorn src.main:app \
   --host 0.0.0.0 \
-  --port 8000 \
-  --graceful-timeout 10
+  --port 8000
