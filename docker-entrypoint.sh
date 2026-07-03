@@ -4,7 +4,7 @@ set -e
 UV="uv run --project /app/backend"
 
 echo "Running alembic migrations..."
-$UV alembic upgrade head
+$UV alembic -c /app/backend/alembic.ini upgrade head
 
 echo "Cleaning orphan scheduler jobs..."
 uv run --project /app/backend python << 'EOF'
